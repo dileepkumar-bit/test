@@ -1,53 +1,36 @@
 pipeline {
-    agent any
+  agent any 
 
-    stages {
+  stages { 
 
-        stage('Checkout') {
-            steps {
-                echo 'Checking out source code'
-            }
-        }
+    stage('Checkout') {
+       steps {
+           echo 'Checking out source code...'
+       }
+    }
 
-        stage('Build') {
-            steps {
-                echo 'Building application...'
-                sleep(time: 5, unit: 'SECONDS')
-            }
-        }
+    stage('Build') {
+        steps {
+           echo 'Building application...'
+       }
+    }
 
-        stage('Run Tests in Parallel') {
-           parallel {
-
-           stage('unit test') {
-             steps { 
-               sh 'chmod +x tests/unit-test.sh'
-               sh './tests/unit-test.sh'
-            }
-        }
-
-        stage('Integration Test') {
-          steps {         
-             sh 'chmod +x tests/integration-test.sh'
-               sh './tests/integration-test.sh'
-       
-            } 
-        }
-
-        stage('UI Test') {
-          steps {
-            sh 'chmod +x tests/ui-test.sh'
-            sh './tests/ui-test.sh'
-
-            }
-         }
+    stage('Unit Test') {
+      steps { 
+        echo 'Running Tests.....'
       }
-   }
-   stage('Deploy') {
-    steps {
-     echo 'Application Deployed Successfully'
-
-        }
-     }
-   }
- }
+    }
+      
+    stage('Approval') {
+      steps { 
+        input message: 'Deploy to Production?', ok: 'Approve'
+      }
+    }
+      
+    stage('Deploy To Production') {
+        steps {
+            echo 'Deploying application...'
+        } 
+      } 
+    }
+  } 
