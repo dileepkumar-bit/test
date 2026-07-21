@@ -17,7 +17,7 @@ pipeline {
 
     stage('Unit Test') {
       steps { 
-        echo 'Running Tests....'
+        echo 'Running Tests.....'
       }
     }
       
@@ -29,7 +29,7 @@ pipeline {
       
     stage('Deploy To Production') {
         steps {
-            echo 'Deploying application..'
+            echo 'Deploying application....'
         } 
       } 
     }
