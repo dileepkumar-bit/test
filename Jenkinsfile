@@ -44,9 +44,9 @@ pipeline {
       }
    }
 
-   stage {
-       steps('Approval') {
-         input message: 'Approval For Deployment?',   Ok: 'Approve'
+   stage ('Approval') {
+       steps {
+         input message: 'Approval For Deployment?', ok: 'Approve'
        }
    }  
    stage('Deploy') {
