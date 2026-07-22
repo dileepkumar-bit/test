@@ -3,30 +3,23 @@ pipeline {
 
     stages {
 
-        stage('Branch Check') {
-            steps {
-                script {
-                    echo "BRANCH_NAME = ${env.BRANCH_NAME}"
-                    echo "GIT_BRANCH = ${env.GIT_BRANCH}"
-                    echo "JOB_NAME = ${env.JOB_NAME}"
-
-                    // Skip if current branch is master
-                    if (env.BRANCH_NAME == "master") {
-                        currentBuild.result = 'NOT_BUILT'
-                        echo "Master branch detected. Skipping pipeline."
-                        return
-                    }
+        stage('Checkout') {
+            when {
+                not {
+                    branch 'master'
                 }
             }
-        }
-
-        stage('Checkout') {
             steps {
                 echo 'Checking out source code'
             }
         }
 
         stage('Build') {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
             steps {
                 echo 'Building application...'
                 sleep(time: 5, unit: 'SECONDS')
@@ -34,6 +27,11 @@ pipeline {
         }
 
         stage('Run Tests in Parallel') {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
             parallel {
 
                 stage('Unit Test') {
@@ -60,12 +58,22 @@ pipeline {
         }
 
         stage('Approval') {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
             steps {
                 input message: 'Approval of Deployment?', ok: 'Approve'
             }
         }
 
         stage('Deploy') {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
             steps {
                 echo 'Application Deployed Successfully'
             }
