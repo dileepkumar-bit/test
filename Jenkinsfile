@@ -8,13 +8,14 @@ pipeline {
                     try {
                         // Deployment logic
                         deployToEnvironment('production')
+
                     } catch (Exception e) {
                         echo "Deployment failed: ${e.getMessage()}"
 
                         // Rollback logic
                         rollbackToPreviousDeployment('production')
 
-                        // Mark the build as failed
+                        // Mark build as failed after rollback
                         error("Deployment failed. Rollback completed.")
                     }
                 }
@@ -24,19 +25,17 @@ pipeline {
 }
 
 def deployToEnvironment(environment) {
-    // Deployment code specific to the environment
-    echo "Deploying to ${environment}"
+    echo "Deploying application to ${environment}"
 
-    // Example:
-    // sh "scp app.war user@server:/opt/tomcat/webapps/"
-    // sh "ssh user@server 'systemctl restart tomcat'"
+    // Simulating deployment failure for testing
+    error("Application deployment failed intentionally")
 }
 
 def rollbackToPreviousDeployment(environment) {
-    // Rollback code specific to the environment
-    echo "Rolling back deployment in ${environment}"
+    echo "Starting rollback in ${environment}"
 
-    // Example:
-    // sh "scp backup/app.war user@server:/opt/tomcat/webapps/"
-    // sh "ssh user@server 'systemctl restart tomcat'"
+    // Simulating rollback process
+    echo "Restoring previous stable version"
+
+    echo "Rollback completed successfully"
 }
