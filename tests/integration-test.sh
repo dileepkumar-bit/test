@@ -2,7 +2,7 @@
 
 echo "======== Integration Test ========="
 
-echo "Running Integration Tests ..."
+echo "Running Integration Tests ....."
 
 sleep 20 
 
