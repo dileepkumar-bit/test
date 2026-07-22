@@ -43,6 +43,12 @@ pipeline {
          }
       }
    }
+
+   stage {
+       steps('Approval') {
+         input message: 'Approval For Deployment?',   Ok: 'Approve'
+       }
+   }  
    stage('Deploy') {
     steps {
      echo 'Application Deployed Successfully'
