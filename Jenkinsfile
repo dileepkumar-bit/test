@@ -5,9 +5,7 @@ pipeline {
 
         stage('Checkout') {
             when {
-                not {
-                    branch 'master'
-                }
+                expression { env.BRANCH_NAME != 'master' }
             }
             steps {
                 echo 'Checking out source code'
@@ -16,9 +14,7 @@ pipeline {
 
         stage('Build') {
             when {
-                not {
-                    branch 'master'
-                }
+                expression { env.BRANCH_NAME != 'master' }
             }
             steps {
                 echo 'Building application...'
@@ -28,10 +24,9 @@ pipeline {
 
         stage('Run Tests in Parallel') {
             when {
-                not {
-                    branch 'master'
-                }
+                expression { env.BRANCH_NAME != 'master' }
             }
+
             parallel {
 
                 stage('Unit Test') {
@@ -59,9 +54,7 @@ pipeline {
 
         stage('Approval') {
             when {
-                not {
-                    branch 'master'
-                }
+                expression { env.BRANCH_NAME != 'master' }
             }
             steps {
                 input message: 'Approval of Deployment?', ok: 'Approve'
@@ -70,9 +63,7 @@ pipeline {
 
         stage('Deploy') {
             when {
-                not {
-                    branch 'master'
-                }
+                expression { env.BRANCH_NAME != 'master' }
             }
             steps {
                 echo 'Application Deployed Successfully'
