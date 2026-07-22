@@ -45,7 +45,7 @@ pipeline {
    }
    stage('Deploy') {
     steps {
-     echo 'Application Deployed Successfully in website'
+     echo 'Application Deployed Successfully in web'
 
         }
      }
