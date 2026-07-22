@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-echo "======== Integration Tests ========="
+echo "======== Integration Test ========="
 
 echo "Running Integration Tests ..."
 
